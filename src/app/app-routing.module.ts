@@ -22,7 +22,15 @@ const routes: Routes = [
   {
     path: 'register',
     loadChildren: () => import('./pages/register/register.module').then( m => m.RegisterPageModule)
+  },  {
+    path: 'play',
+    loadChildren: () => import('./pages/play/play.module').then( m => m.PlayPageModule)
   },
+  {
+    path: 'question-card',
+    loadChildren: () => import('./pages/question-card/question-card.module').then( m => m.QuestionCardPageModule)
+  },
+
   /*{
     path: 'ranking',
     loadChildren: () => import('./pages/ranking/ranking.module').then( m => m.RankingPageModule)
