@@ -1,0 +1,22 @@
+
+#timer ion-progress-bar{
+  height: 10px;
+  --progress-background:red
+}
+
+#timer ion-text{
+  font-family: Gosthy;
+  text-align: center;
+}
+
+#timer h1{
+  font-size: 8vh;
+}
+app-question-card{
+
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 70%;
+  transform: translateY(-70%);
+}
