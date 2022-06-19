@@ -1,11 +1,12 @@
+
 <ion-card>
   <ion-card-header>
-    <ion-title>WHO IS THE BEST!!!!?</ion-title>
+    <ion-text>{{card?.question}}</ion-text>
   </ion-card-header>
   <ion-card-content>
-    <ion-item class="answer">You</ion-item>
-    <ion-item class="answer">ME</ion-item>
-    <ion-item class="answer">I</ion-item>
-    <ion-item class="answer">ALL OF THEM</ion-item>
+    <ion-item class="answer" >{{card?.correctAnswer}}</ion-item>
+    <ion-item class="answer">{{card?.incorrectsAnwsers[0]}}</ion-item>
+    <ion-item class="answer">{{card?.incorrectsAnwsers[1]}}</ion-item>
+    <ion-item class="answer">{{card?.incorrectsAnwsers[2]}}</ion-item>
   </ion-card-content>
 </ion-card>

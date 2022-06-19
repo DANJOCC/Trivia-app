@@ -9,14 +9,14 @@ import { PlayPageRoutingModule } from './play-routing.module';
 import { PlayPage } from './play.page';
 import { QuestionCardPage } from '../question-card/question-card.page';
 
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
     PlayPageRoutingModule,
-    QuestionCardPage
   ],
-  declarations: [PlayPage]
+  declarations: [PlayPage,QuestionCardPage]
 })
 export class PlayPageModule {}

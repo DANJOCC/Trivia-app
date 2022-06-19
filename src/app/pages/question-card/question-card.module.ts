@@ -15,6 +15,6 @@ import { QuestionCardPage } from './question-card.page';
     IonicModule,
     QuestionCardPageRoutingModule
   ],
-  declarations: [QuestionCardPage]
+  declarations: []
 })
 export class QuestionCardPageModule {}
