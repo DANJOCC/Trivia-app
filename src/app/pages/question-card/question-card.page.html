@@ -4,9 +4,9 @@
     <ion-text>{{card?.question}}</ion-text>
   </ion-card-header>
   <ion-card-content>
-    <ion-item class="answer" >{{card?.correctAnswer}}</ion-item>
-    <ion-item class="answer">{{card?.incorrectsAnwsers[0]}}</ion-item>
-    <ion-item class="answer">{{card?.incorrectsAnwsers[1]}}</ion-item>
-    <ion-item class="answer">{{card?.incorrectsAnwsers[2]}}</ion-item>
+    <ion-item class="answer" button (click)="nextQuestion($event)" >{{card?.correctAnswer}}</ion-item>
+    <ion-item class="answer" button (click)="nextQuestion($event)">{{card?.incorrectsAnwsers[0]}}</ion-item>
+    <ion-item class="answer" button (click)="nextQuestion($event)">{{card?.incorrectsAnwsers[1]}}</ion-item>
+    <ion-item class="answer" button (click)="nextQuestion($event)">{{card?.incorrectsAnwsers[2]}}</ion-item>
   </ion-card-content>
 </ion-card>

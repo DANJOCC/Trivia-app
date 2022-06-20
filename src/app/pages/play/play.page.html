@@ -5,5 +5,5 @@
     <ion-text><h1>{{this.min | number: '2.0'}}:{{this.sg  | number: '2.0'}}</h1></ion-text>
   <ion-progress-bar value="{{this.progressTime}}"></ion-progress-bar>
   </div>
-    <app-question-card></app-question-card>
+    <app-question-card [mode]="modo" (cardInfo)="addScore($event)"></app-question-card>
 </ion-content>
