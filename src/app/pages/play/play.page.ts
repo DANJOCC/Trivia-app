@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import {interval} from 'rxjs';
 import { CardInfo } from 'src/app/interfaces/card-info';
@@ -12,6 +12,7 @@ import { PlayInfo } from 'src/app/interfaces/play-info';
   styleUrls: ['./play.page.scss'],
 })
 export class PlayPage implements OnInit {
+  difficult: number;
   playInfo: PlayInfo;
   modo: string;
   time: number;
@@ -20,13 +21,16 @@ export class PlayPage implements OnInit {
   initTime: number;
   progressTime=1;
 
-  constructor(private paramsRutas: ActivatedRoute) { }
+  constructor(private paramsRutas: ActivatedRoute, private route: Router) { }
 
   ngOnInit() {
       this.playInfo={
         score:0,
-        rigthAnswsers:0
+        rigthAnswsers:0,
+        difficulty:0,
+        final:false
       };
+      this.difficult=0;
       this.modo=this.paramsRutas.snapshot.params.modo;
       this.time=this.modo==='rush'? 20:60;
       this.min= this.time<60? 0:1;
@@ -54,13 +58,20 @@ export class PlayPage implements OnInit {
       })
     );
   }
+
+  game(card: CardInfo){
+    this.addScore(card);
+    this.changeDifficult(this.playInfo.rigthAnswsers);
+    if(card.lastQuestion){
+        this.route.navigate(['/hall']);
+    }
+  }
+
+  //aumenta el puntuaje
+
   addScore(card: CardInfo){
     if(card.correctAnswer){
       this.playInfo.rigthAnswsers++;
-      if(this.playInfo.rigthAnswsers === 5 && this.modo==='rush'){
-        this.time+=20;
-        this.playInfo.rigthAnswsers=0;
-      }
         if(card.difficult==='easy'){
             this.playInfo.score+=10;
         }
@@ -74,6 +85,31 @@ export class PlayPage implements OnInit {
     else{
       this.playInfo.rigthAnswsers=0;
     }
+    console.log(this.playInfo.score);
+  }
+
+  //cambia dificultad y timer
+
+  changeDifficult(correctAnswers: number){
+     if(correctAnswers===0){
+          if(this.playInfo.difficulty>0){
+            this.playInfo.difficulty--;
+          }
+     }
+     else if(correctAnswers===3){
+      this.playInfo.difficulty++;
+     }
+     else if(correctAnswers>=5){
+      if(correctAnswers === 5 && this.modo==='rush'){
+        this.time+=20;
+      }
+      else{
+        this.playInfo.difficulty++;
+        this.playInfo.rigthAnswsers=0;
+      }
+     }
+     console.log(this.playInfo.difficulty);
+     this.difficult=this.playInfo.difficulty;
   }
 
 }

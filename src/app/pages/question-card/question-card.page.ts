@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CardInfo } from 'src/app/interfaces/card-info';
 import { Question } from 'src/app/interfaces/question';
+import { QuestionGameService } from 'src/app/services/question-game.service';
 import { QuestionsService } from 'src/app/services/questions.service';
 
 @Component({
@@ -11,51 +12,36 @@ import { QuestionsService } from 'src/app/services/questions.service';
 
 export class QuestionCardPage implements OnInit {
   @Input() mode: string;
+  @Input() difficulty: number;
   @Output() cardInfo = new EventEmitter<CardInfo>();
-  data: any;
+  range: string[]=['easy','medium','hard'];
   card: Question;
-  questionNumber: number;
-  constructor(private questionsService: QuestionsService) { }
+  data: any;
+  constructor(private game: QuestionGameService, private questionService: QuestionsService) { }
   ngOnInit() {
     if(this.mode==='rush'){
-      this.questionsService.getRushQuestions('easy').subscribe((data: any)=>{
-      this.firstQuestion(data);
+      this.questionService.getRushQuestions('easy').subscribe((data: any)=>{ // 2.SE OBTIENEN PRIMERAS PREGUNTAS
+      this.card=this.game.gameOn(true,data);
     });
     }
-    else if(this.mode==='normal'){
-      this.questionsService.getNormalQuestions('easy').subscribe((data: any)=>{
-        this.firstQuestion(data);
+    else{
+      this.questionService.getNormalQuestions('easy').subscribe((data: any)=>{
+        this.card=this.game.gameOn(false,data);
 
-      });
+    });
+    }
+        console.log(this.card);
+    }
+    nextQuestion(event: Event){
+      const answer=(event.target as HTMLElement).innerHTML;
+      this.data=this.game.nextQuestion(answer,this.difficulty,this.card);
+      this.cardInfo.emit(this.data[0]);
+      this.card=this.data[1];
     }
   }
-  nextQuestion(event: Event){
-    const answer=(event.target as HTMLElement).innerHTML;
-    this.questionNumber++;
-    if(answer===this.card.correctAnswer){
 
-      this.cardInfo.emit({
-        difficult:this.card.difficulty,
-        correctAnswer: true,});
+  //cambio a siguiente pregunta
 
-    }
-    if(this.questionNumber<this.data.length){
-    this.card={
-      difficulty:this.data[this.questionNumber].difficulty,
-      question: this.data[this.questionNumber].question,
-      correctAnswer:this.data[this.questionNumber].correct_answer,
-      incorrectsAnwsers:this.data[this.questionNumber].incorrect_answers
-    };
-  }
-  }
-  firstQuestion(data: any[]){
-    this.data=data;
-    this.questionNumber=0;
-    this.card={
-      difficulty:this.data[0].difficulty,
-      question: this.data[0].question,
-      correctAnswer:this.data[0].correct_answer,
-      incorrectsAnwsers:this.data[0].incorrect_answers
-    };
-  }
-}
+
+
+
