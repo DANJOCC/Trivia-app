@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { map } from 'rxjs/operators';
-import {interval} from 'rxjs';
+import {interval, timer} from 'rxjs';
 import { CardInfo } from 'src/app/interfaces/card-info';
 import { PlayInfo } from 'src/app/interfaces/play-info';
 
@@ -12,45 +12,45 @@ import { PlayInfo } from 'src/app/interfaces/play-info';
   styleUrls: ['./play.page.scss'],
 })
 export class PlayPage implements OnInit {
-  difficult: number;
-  playInfo: PlayInfo;
-  modo: string;
-  time: number;
-  sg: number;
-  min: number;
-  initTime: number;
-  progressTime=1;
+  difficult: number;                           //dificultad de la tarjeta
+  playInfo: PlayInfo;                          //Informacion general del estado del juego
+  modo: string;                                //modo en el cual se juega
+  time: number;                                //tiempo del reloj (segundos)
+  sg: number;                                  //segundos
+  min: number;                                 //minutos
+  initTime: number;                            //tiempo inicial
+  progressTime=1;                              //valor de barra de tiempo
 
   constructor(private paramsRutas: ActivatedRoute, private route: Router) { }
 
   ngOnInit() {
-      this.playInfo={
+      this.playInfo={ //estado inicial de juego
         score:0,
-        rigthAnswsers:0,
+        rigthAnswers:0,
         difficulty:0,
         final:false
       };
       this.difficult=0;
-      this.modo=this.paramsRutas.snapshot.params.modo;
-      this.time=this.modo==='rush'? 20:60;
+      this.modo=this.paramsRutas.snapshot.params.modo;// se guarda el modo del juego paso en la ruta
+      this.time=this.modo==='rush'? 20:60;//se configura el reloj
       this.min= this.time<60? 0:1;
       this.sg= this.time<60? 20:0;
       this.initTime=this.time;
-      const counter=this.start().subscribe(()=>{
+      const counter=this.start().subscribe(()=>{//empieza a contar
         if(this.time===0){
           counter.unsubscribe();
         }
       });
   }
 
-  changeTime(){
+  changeTime(){//cambia el tiempo
     this.time--;
     this.min=Math.floor(this.time/60);
     this.sg=this.time-this.min*60;
     this.progressTime=this.time/this.initTime;
   }
 
-  start(){
+  start(){//inicia el reloj
     return interval(1000).pipe(
       map((x: number)=>{
           this.changeTime();
@@ -59,57 +59,43 @@ export class PlayPage implements OnInit {
     );
   }
 
+
+  //game, cambia el estado del juego, obtiene informacion del child component
+
   game(card: CardInfo){
-    this.addScore(card);
-    this.changeDifficult(this.playInfo.rigthAnswsers);
-    if(card.lastQuestion){
-        this.route.navigate(['/hall']);
+    if(typeof card.lastQuestion !== 'undefined'){
+      if(card.lastQuestion) {this.route.navigate(['/hall']);}
     }
+    this.playInfo.difficulty=this.difficult;
+    this.addScore(card);
+    this.addTime();
   }
 
   //aumenta el puntuaje
 
   addScore(card: CardInfo){
     if(card.correctAnswer){
-      this.playInfo.rigthAnswsers++;
-        if(card.difficult==='easy'){
+        if(this.playInfo.difficulty===0){
             this.playInfo.score+=10;
         }
-        else if((card.difficult==='medium')){
+        else if(this.playInfo.difficulty===1){
           this.playInfo.score+=30;
         }
         else{
           this.playInfo.score+=70;
         }
+        this.playInfo.rigthAnswers++;
     }
     else{
-      this.playInfo.rigthAnswsers=0;
+      this.playInfo.rigthAnswers=0;
     }
     console.log(this.playInfo.score);
   }
 
-  //cambia dificultad y timer
+  //agrega tiempo al reloj
 
-  changeDifficult(correctAnswers: number){
-     if(correctAnswers===0){
-          if(this.playInfo.difficulty>0){
-            this.playInfo.difficulty--;
-          }
-     }
-     else if(correctAnswers===3){
-      this.playInfo.difficulty++;
-     }
-     else if(correctAnswers>=5){
-      if(correctAnswers === 5 && this.modo==='rush'){
-        this.time+=20;
-      }
-      else{
-        this.playInfo.difficulty++;
-        this.playInfo.rigthAnswsers=0;
-      }
-     }
-     console.log(this.playInfo.difficulty);
-     this.difficult=this.playInfo.difficulty;
+  addTime(){
+    if(this.playInfo.rigthAnswers === 5 && this.modo==='rush') {this.time+=20;}
   }
 
 }

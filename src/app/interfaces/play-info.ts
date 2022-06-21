@@ -1,6 +1,6 @@
 export interface PlayInfo {
   score: number;
-  rigthAnswsers: number;
+  rigthAnswers: number;
   difficulty: number;
   final: boolean;
 }
