@@ -1,9 +1,38 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>register</ion-title>
+  <ion-toolbar color="tertiary">
+    <ion-buttons slot="start">
+      <ion-back-button  defaultHref="/login"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Registro</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <ion-list class="opacity">
+    <ion-item>
+      <ion-label position="floating">Nombre</ion-label>
+      <ion-input clearInput  type="text" #nombre></ion-input>
+      <ion-icon slot="end" name="person-outline"></ion-icon>
+    </ion-item> 
+    <ion-item>
+      <ion-label position="floating">Email</ion-label>
+      <ion-input clearInput type="email" #email></ion-input>
+      <ion-icon slot="end" name="at"></ion-icon>
+    </ion-item>
+  
+    <ion-item>
+      <ion-label position="floating">Constrasena</ion-label>
+      <ion-input clearInput type="password" #constrasena></ion-input>
+      <ion-icon slot="end" name="lock-closed-outline"></ion-icon>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Confirmar Constrasena</ion-label>
+      <ion-input clearInput type="password" #pass2></ion-input>
+      <ion-icon slot="end" name="lock-closed-outline"></ion-icon>
+    </ion-item>
+  </ion-list>  
+  <ion-button expand="full" shape="round" color="primary" (click) = "registro(name.value, email.value, pass.value, pass2.value)">
+    Registro
+  </ion-button>
+  <ion-button expand="full" shape="round" color="secondary"  href="/home">Home</ion-button>
 </ion-content>
