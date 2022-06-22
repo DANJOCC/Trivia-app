@@ -1,9 +1,23 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>login</ion-title>
+  <ion-toolbar color="tertiary">
+    <ion-title>Login</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+<ion-list class="opacity">
+<ion-item>
+  <ion-label position="floating">Email</ion-label>
+  <ion-input clearInput type="email" autofocus="true" #email></ion-input>
+  <ion-icon slot="end" name="at"></ion-icon>
+</ion-item>
+<ion-item>
+  <ion-label position="floating">constraseña</ion-label>
+  <ion-input clearInput type="constraseña" #constraseña></ion-input>
+  <ion-icon slot="end" name="lock-closed-outline"></ion-icon>
+</ion-item>
 
+</ion-list>
+<ion-button expand="full" shape="round" color="primary" (click)="singin(email.value,pass.value);">login</ion-button>
+<ion-button expand="full" shape="round" color="secondary"  href="/register">Register</ion-button>
 </ion-content>
