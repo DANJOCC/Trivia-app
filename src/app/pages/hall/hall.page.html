@@ -2,13 +2,10 @@
   <div id="container">
   <ion-slides>
     <ion-slide>
-      <app-ranking></app-ranking>
+      <app-ranking [mode]="this.rush"></app-ranking>
     </ion-slide>
     <ion-slide>
-      <app-ranking></app-ranking>
-    </ion-slide>
-    <ion-slide>
-      <app-ranking></app-ranking>
+      <app-ranking [mode]="this.normal"></app-ranking>
     </ion-slide>
   </ion-slides>
 

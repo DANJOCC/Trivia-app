@@ -5,11 +5,22 @@ ion-card-content{
   padding: 0;
 
 }
+
+ion-card-content{
+  height: 75%;
+  margin-top: 10%;
+}
+div{
+  width: 100%;
+  font-size: 3vh;
+}
 ion-item{
-  font-family:Panic
+  font-family:Panic;
+  height: 20%;
 }
 ion-text{
   font-size: 3vh;
+  text-align: center;
 }
 ion-card{
   height: 500px;

@@ -1,9 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import {interval, timer} from 'rxjs';
 import { CardInfo } from 'src/app/interfaces/card-info';
 import { PlayInfo } from 'src/app/interfaces/play-info';
+import { IonModal } from '@ionic/angular';
 
 
 @Component({
@@ -12,6 +13,10 @@ import { PlayInfo } from 'src/app/interfaces/play-info';
   styleUrls: ['./play.page.scss'],
 })
 export class PlayPage implements OnInit {
+
+  @ViewChild(IonModal) ventana: IonModal;
+
+
   difficult: number;                           //dificultad de la tarjeta
   playInfo: PlayInfo;                          //Informacion general del estado del juego
   modo: string;                                //modo en el cual se juega
@@ -39,6 +44,7 @@ export class PlayPage implements OnInit {
       const counter=this.start().subscribe(()=>{//empieza a contar
         if(this.time===0){
           counter.unsubscribe();
+          this.route.navigate(['game-over',this.modo,this.playInfo.score]);
         }
       });
   }
@@ -64,7 +70,10 @@ export class PlayPage implements OnInit {
 
   game(card: CardInfo){
     if(typeof card.lastQuestion !== 'undefined'){
-      if(card.lastQuestion) {this.route.navigate(['/hall']);}
+      if(card.lastQuestion){
+        const score=this.playInfo.score;
+        this.route.navigate([`game-over/${this.modo}/${score}`]);
+      }
     }
     this.playInfo.difficulty=this.difficult;
     this.addScore(card);

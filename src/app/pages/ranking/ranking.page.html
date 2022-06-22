@@ -3,14 +3,14 @@
     <ion-title>Mejores del Mundo</ion-title>
   </ion-card-header>
   <ion-card-content>
-    <ion-item>
-     el besto
+    <ng-container *ngIf="this.mode==='rush'; then rush; else normal"></ng-container>
+    <ng-template #rush>
+    <ion-item *ngFor="let user of this.data; let i=index">
+     {{this.data[i].username}} {{this.data[i].rush}}
     </ion-item>
-    <ion-item>
-     el segundo
-    </ion-item>
-    <ion-item>
-    el tercero
-    </ion-item>
+  </ng-template>
+  <ng-template #normal><ion-item *ngFor="let user of this.data; let i=index">
+    {{this.data[i].username}} {{this.data[i].normal}}
+  </ion-item></ng-template>
   </ion-card-content>
 </ion-card>

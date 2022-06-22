@@ -8,6 +8,7 @@ import { HallPageRoutingModule } from './hall-routing.module';
 
 import { HallPage } from './hall.page';
 import { RankingPage } from '../ranking/ranking.page';
+import { RankingPageModule } from '../ranking/ranking.module';
 
 @NgModule({
   imports: [
@@ -15,8 +16,8 @@ import { RankingPage } from '../ranking/ranking.page';
     FormsModule,
     IonicModule,
     HallPageRoutingModule,
-    RankingPage
+    RankingPageModule
   ],
-  declarations: [HallPage]
+  declarations: [HallPage, RankingPage]
 })
 export class HallPageModule {}
