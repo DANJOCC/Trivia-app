@@ -1,7 +1,7 @@
 export interface User{
     id:number,
-    nombre:string,
+    username:string,
     email:string,
-    contrasena:string,
-    confirmarConstrasena:string
+    password:string,
+    confirmPassword:string
 };

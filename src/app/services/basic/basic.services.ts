@@ -27,24 +27,24 @@ export class BasicService {
   }
 
   public setUserOnSession(data: User) { 
-    sessionStorage.nombre = data.nombre
+    sessionStorage.userName = data.username;
     sessionStorage.email = data.email;
     sessionStorage.id = data.id;
     }
 
   public nullUserOnSession() { 
-    sessionStorage.nombre = null;
+    sessionStorage.userName = null;
     sessionStorage.email = null;
     sessionStorage.id = null;   
   }
 
   public getUserOnSession() {
     return {
-      nombre: sessionStorage.nombre,
+      userName: sessionStorage.userName,
       email: sessionStorage.email,
       id: sessionStorage.id,
-      constrasena: null,
-      confirmarConstrasena: null
+      password: null,
+      confirmPassword: null
     } 
   }
 
