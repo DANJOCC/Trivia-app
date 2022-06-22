@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PlayInfo } from 'src/app/interfaces/play-info';
+import { RankingService } from 'src/app/services/ranking.service';
 
 @Component({
   selector: 'app-game-over',
@@ -10,11 +11,23 @@ import { PlayInfo } from 'src/app/interfaces/play-info';
 export class GameOverPage implements OnInit {
   score: number;
   modo: string;
-  constructor(private paramsRutas: ActivatedRoute) { }
+  constructor(private paramsRutas: ActivatedRoute, private ranking: RankingService) { }
 
   ngOnInit() {
     this.score=this.paramsRutas.snapshot.params.score;
     this.modo=this.paramsRutas.snapshot.params.modo;
+    const data={
+      username:'elVato',
+      category:this.modo,
+      score: this.score
+    };
+    console.log(data.score);
+    this.newScore(data);
   }
-
+  newScore(data: any){
+    this.ranking.newScore(data).subscribe((response: string)=>{
+      console.log(response);
+    }
+    );
+  }
 }

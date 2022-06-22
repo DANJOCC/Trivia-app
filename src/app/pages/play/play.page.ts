@@ -5,6 +5,7 @@ import {interval, timer} from 'rxjs';
 import { CardInfo } from 'src/app/interfaces/card-info';
 import { PlayInfo } from 'src/app/interfaces/play-info';
 import { IonModal } from '@ionic/angular';
+import { RankingService } from 'src/app/services/ranking.service';
 
 
 @Component({
@@ -14,9 +15,6 @@ import { IonModal } from '@ionic/angular';
 })
 export class PlayPage implements OnInit {
 
-  @ViewChild(IonModal) ventana: IonModal;
-
-
   difficult: number;                           //dificultad de la tarjeta
   playInfo: PlayInfo;                          //Informacion general del estado del juego
   modo: string;                                //modo en el cual se juega
@@ -25,8 +23,9 @@ export class PlayPage implements OnInit {
   min: number;                                 //minutos
   initTime: number;                            //tiempo inicial
   progressTime=1;                              //valor de barra de tiempo
-
-  constructor(private paramsRutas: ActivatedRoute, private route: Router) { }
+  points: number;
+  rigths: number;
+  constructor(private paramsRutas: ActivatedRoute, private route: Router, private ranking: RankingService) { }
 
   ngOnInit() {
       this.playInfo={ //estado inicial de juego
@@ -35,6 +34,7 @@ export class PlayPage implements OnInit {
         difficulty:0,
         final:false
       };
+      this.points=0;
       this.difficult=0;
       this.modo=this.paramsRutas.snapshot.params.modo;// se guarda el modo del juego paso en la ruta
       this.time=this.modo==='rush'? 20:60;//se configura el reloj
@@ -71,34 +71,38 @@ export class PlayPage implements OnInit {
   game(card: CardInfo){
     if(typeof card.lastQuestion !== 'undefined'){
       if(card.lastQuestion){
-        const score=this.playInfo.score;
-        this.route.navigate([`game-over/${this.modo}/${score}`]);
+        const newScore=this.rigths+(this.difficult*10)+this.playInfo.score+(this.time*100)+this.points*1000;//agregar nueva puntuacion
+        this.route.navigate([`game-over/${this.modo}/${newScore}`]);//fin del juego
+      }
+      else{
+        this.playInfo.difficulty=this.difficult;
+        this.addScore(card);
+        this.addTime();
       }
     }
-    this.playInfo.difficulty=this.difficult;
-    this.addScore(card);
-    this.addTime();
   }
 
   //aumenta el puntuaje
 
   addScore(card: CardInfo){
     if(card.correctAnswer){
+        this.points++;
+        this.rigths++;
         if(this.playInfo.difficulty===0){
-            this.playInfo.score+=10;
+            this.playInfo.score+=1;
         }
         else if(this.playInfo.difficulty===1){
-          this.playInfo.score+=30;
+          this.playInfo.score+=3;
         }
         else{
-          this.playInfo.score+=70;
+          this.playInfo.score+=7;
         }
         this.playInfo.rigthAnswers++;
     }
     else{
       this.playInfo.rigthAnswers=0;
+      this.points--;
     }
-    console.log(this.playInfo.score);
   }
 
   //agrega tiempo al reloj

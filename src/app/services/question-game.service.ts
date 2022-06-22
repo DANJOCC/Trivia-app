@@ -83,7 +83,6 @@ export class QuestionGameService {
 
   nextQuestion(difficult: number, card: Question){ //4 Y 5. SE RESPONDE LA PREGUNTA Y
     this.questionNumber++;                                         //SE AUMENTA EN 1 EL NUMERO DE RESPONDIDAS
-    console.log('dificultad:',difficult,' igual adentro:', this.difficult===difficult);
     if(this.mode){
       if(this.questionNumber<10){ //6. SE CAMBIA A LA SIGUIENTE PREGUNTA SI DIFICULTA ES LA MISMA Y AUN QUEDAN EN FILA
           this.card={
@@ -102,7 +101,6 @@ export class QuestionGameService {
     }
     else{
       this.questionNumberNormal++;
-      console.log('cuenta normal:',this.questionNumberNormal);
       if(this.questionNumberNormal<10){ //6. SE CAMBIA A LA SIGUIENTE PREGUNTA SI DIFICULTA ES LA MISMA Y AUN QUEDAN EN FILA
           this.card={
             difficulty:this.data[this.questionNumber].difficulty,

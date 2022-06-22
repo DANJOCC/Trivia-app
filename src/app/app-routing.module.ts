@@ -24,7 +24,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/register/register.module').then( m => m.RegisterPageModule)
   },
   {
-    path: 'play',
+    path: 'play/:modo',
     loadChildren: () => import('./pages/play/play.module').then( m => m.PlayPageModule)
   },
   {
