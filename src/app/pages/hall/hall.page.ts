@@ -9,7 +9,8 @@ import { IonSlides } from '@ionic/angular';
 export class HallPage implements OnInit {
 
   @ViewChild(IonSlides) slides: IonSlides;
-
+  rush='rush';
+  normal='normal';
   constructor() { }
 
   ngOnInit() {

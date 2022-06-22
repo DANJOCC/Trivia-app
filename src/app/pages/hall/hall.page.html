@@ -2,17 +2,14 @@
   <div id="container">
   <ion-slides>
     <ion-slide>
-      <app-ranking></app-ranking>
+      <app-ranking [mode]="this.rush"></app-ranking>
     </ion-slide>
     <ion-slide>
-      <app-ranking></app-ranking>
-    </ion-slide>
-    <ion-slide>
-      <app-ranking></app-ranking>
+      <app-ranking [mode]="this.normal"></app-ranking>
     </ion-slide>
   </ion-slides>
 
-  <ion-button [routerLink]="['play/normal']" >Normal</ion-button>
-  <ion-button [routerLink]="['play/rush']">Rush</ion-button>
+  <ion-button [routerLink]="['/play/normal']" >Normal</ion-button>
+  <ion-button [routerLink]="['/play/rush']">Rush</ion-button>
 </div>
 </ion-content>

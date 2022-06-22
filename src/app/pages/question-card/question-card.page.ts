@@ -39,11 +39,8 @@ export class QuestionCardPage implements OnInit {
 
       const answer=(event.target as HTMLElement).innerHTML;//se obtiene respuesta
       this.data=this.game.correctAnswers(answer, this.card);// se obtiene aciertos
-      console.log(this.data);
-      console.log('antes',this.difficulty);
       this.changeDifficulty(this.data[1]);//cambio de dificultad
-      console.log('despues',this.difficulty);
-      console.log('fue mas rapido');
+
     }
 
     changeDifficulty(ritghs: number){//se cambia dificultad o no, y se emiten los estados de juego y las cartas

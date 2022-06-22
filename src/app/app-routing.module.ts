@@ -22,13 +22,18 @@ const routes: Routes = [
   {
     path: 'register',
     loadChildren: () => import('./pages/register/register.module').then( m => m.RegisterPageModule)
-  },  {
-    path: 'play',
+  },
+  {
+    path: 'play/:modo',
     loadChildren: () => import('./pages/play/play.module').then( m => m.PlayPageModule)
   },
   {
     path: 'question-card',
     loadChildren: () => import('./pages/question-card/question-card.module').then( m => m.QuestionCardPageModule)
+  },
+  {
+    path: 'game-over/:modo/:score',
+    loadChildren: () => import('./pages/game-over/game-over.module').then( m => m.GameOverPageModule)
   },
 
   /*{

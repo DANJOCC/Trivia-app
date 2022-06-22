@@ -4,15 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { RankingPageRoutingModule } from './ranking-routing.module';
+import { GameOverPageRoutingModule } from './game-over-routing.module';
+
+import { GameOverPage } from './game-over.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    RankingPageRoutingModule
+    GameOverPageRoutingModule
   ],
-  declarations: []
+  declarations: [GameOverPage]
 })
-export class RankingPageModule {}
+export class GameOverPageModule {}

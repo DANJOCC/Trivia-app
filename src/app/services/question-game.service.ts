@@ -41,7 +41,8 @@ export class QuestionGameService {
       difficulty:this.data[0].difficulty,
       question: this.data[0].question,
       correctAnswer:this.data[0].correct_answer,
-      incorrectsAnwsers:this.data[0].incorrect_answers
+      incorrectsAnswers:this.data[0].incorrect_answers,
+      shuffleAnswers:this.shuffle(this.data[0].incorrect_answers, this.data[0].correct_answer)
     };
   }
 
@@ -82,14 +83,14 @@ export class QuestionGameService {
 
   nextQuestion(difficult: number, card: Question){ //4 Y 5. SE RESPONDE LA PREGUNTA Y
     this.questionNumber++;                                         //SE AUMENTA EN 1 EL NUMERO DE RESPONDIDAS
-    console.log('dificultad:',difficult,' igual adentro:', this.difficult===difficult);
     if(this.mode){
       if(this.questionNumber<10){ //6. SE CAMBIA A LA SIGUIENTE PREGUNTA SI DIFICULTA ES LA MISMA Y AUN QUEDAN EN FILA
           this.card={
             difficulty:this.data[this.questionNumber].difficulty,
             question: this.data[this.questionNumber].question,
             correctAnswer:this.data[this.questionNumber].correct_answer,
-            incorrectsAnwsers:this.data[this.questionNumber].incorrect_answers
+            incorrectsAnswers:this.data[this.questionNumber].incorrect_answers,
+            shuffleAnswers:this.shuffle(this.data[this.questionNumber].incorrect_answers, this.data[this.questionNumber].correct_answer)
             };
          }
       else{
@@ -100,17 +101,27 @@ export class QuestionGameService {
     }
     else{
       this.questionNumberNormal++;
-      console.log('cuenta normal:',this.questionNumberNormal);
-      if(this.questionNumberNormal<=10){ //6. SE CAMBIA A LA SIGUIENTE PREGUNTA SI DIFICULTA ES LA MISMA Y AUN QUEDAN EN FILA
+      if(this.questionNumberNormal<10){ //6. SE CAMBIA A LA SIGUIENTE PREGUNTA SI DIFICULTA ES LA MISMA Y AUN QUEDAN EN FILA
           this.card={
             difficulty:this.data[this.questionNumber].difficulty,
             question: this.data[this.questionNumber].question,
             correctAnswer:this.data[this.questionNumber].correct_answer,
-            incorrectsAnwsers:this.data[this.questionNumber].incorrect_answers
+            incorrectsAnswers:this.data[this.questionNumber].incorrect_answers,
+            shuffleAnswers:this.shuffle(this.data[this.questionNumber].incorrect_answers, this.data[this.questionNumber].correct_answer)
           };
           if(this.questionNumberNormal===9){this.final=true;}
       }
     }
     return this.card;
+  }
+  shuffle(array: string[], member?: string){
+    if(typeof member !== 'undefined'){
+      array.push(member);
+    }
+    for (let i = array.length -1; i >0; i--) {
+      const j= Math.floor(Math.random()* (i+1));
+      [array[i],array[j]]=[array[j],array[i]];
+    }
+    return array;
   }
 }

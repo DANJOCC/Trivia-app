@@ -1,18 +1,22 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { GameOverPage } from '../game-over/game-over.page';
+import { HallPage } from '../hall/hall.page';
 import { PlayPage } from '../play/play.page';
 
-import { HallPage } from './hall.page';
+import { GameOverPage } from './game-over.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: HallPage
+    component: GameOverPage
   },
   {
     path:'play/:modo',
     component: PlayPage
+  },
+  {
+    path:'hall',
+    component: HallPage
   }
 ];
 
@@ -20,4 +24,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class HallPageRoutingModule {}
+export class GameOverPageRoutingModule {}

@@ -2,5 +2,6 @@ export interface Question {
   difficulty: string;
   question: string;
   correctAnswer: string;
-  incorrectsAnwsers: string[];
+  incorrectsAnswers: string[];
+  shuffleAnswers: string[]|any;
 }
