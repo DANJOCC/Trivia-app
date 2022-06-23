@@ -27,13 +27,13 @@ export class BasicService {
   }
 
   public setUserOnSession(data: User) { 
-    sessionStorage.userName = data.username;
+    sessionStorage.user = data.user;
     sessionStorage.email = data.email;
     sessionStorage.id = data.id;
     }
 
   public nullUserOnSession() { 
-    sessionStorage.userName = null;
+    sessionStorage.user = null;
     sessionStorage.email = null;
     sessionStorage.id = null;   
   }
