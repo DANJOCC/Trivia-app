@@ -4,3 +4,23 @@ ion-card{
   background-color: #f3f3f3;
   box-shadow:none
 }
+ion-item{
+  font-family: Panic;
+}
+
+ion-title{
+  font-family: Panic;
+}
+div{
+  text-align: center;
+  width: 100%;
+}
+ion-card-content {
+  max-height: calc(100% - #{50px});
+  position: relative;
+  overflow: hidden;
+  overflow-y: auto;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+}

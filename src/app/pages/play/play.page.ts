@@ -71,7 +71,7 @@ export class PlayPage implements OnInit {
   game(card: CardInfo){
     if(typeof card.lastQuestion !== 'undefined'){
       if(card.lastQuestion){
-        const newScore=this.rigths+(this.difficult*10)+this.playInfo.score+(this.time*100)+this.points*1000;//agregar nueva puntuacion
+        const newScore=this.playInfo.score+(this.time*100);//agregar nueva puntuacion
         this.route.navigate([`game-over/${this.modo}/${newScore}`]);//fin del juego
       }
       else{
@@ -89,13 +89,13 @@ export class PlayPage implements OnInit {
         this.points++;
         this.rigths++;
         if(this.playInfo.difficulty===0){
-            this.playInfo.score+=1;
+            this.playInfo.score+=1+this.rigths;
         }
         else if(this.playInfo.difficulty===1){
-          this.playInfo.score+=3;
+          this.playInfo.score+=3+this.rigths;
         }
         else{
-          this.playInfo.score+=7;
+          this.playInfo.score+=7+this.rigths;
         }
         this.playInfo.rigthAnswers++;
     }
@@ -108,7 +108,9 @@ export class PlayPage implements OnInit {
   //agrega tiempo al reloj
 
   addTime(){
-    if(this.playInfo.rigthAnswers === 5 && this.modo==='rush') {this.time+=20;}
+    if(this.playInfo.rigthAnswers === 5 && this.modo==='rush') {
+      this.time+=20;
+      this.playInfo.score+= Math.abs(this.points*1000)+this.difficult*10;}
   }
 
 }

@@ -1,10 +1,14 @@
 
 <ion-content>
 
-      <ion-title>GAME OVER</ion-title>
-        <ion-text><h1>Final Score: {{this.score}}</h1></ion-text>
-        <ion-button [routerLink]="['/play', this.modo]">Try again</ion-button>
-        <ion-button [routerLink]="['/hall']">Continue</ion-button>
+        <ion-title>GAME OVER</ion-title>
+        <ng-container *ngIf="this.score===undefined; then wait; else resultado"></ng-container>
+        <ng-template #wait><ion-text><h1>Esperando resultado...</h1></ion-text></ng-template>
+        <ng-template #resultado><ion-text><h1>Final Score: {{this.score}}</h1></ion-text>
+          <ion-button [routerLink]="['/play', this.modo]">Try again</ion-button>
+          <ion-button [routerLink]="['/hall']">Continue</ion-button>
+        </ng-template>
+
 
 
 </ion-content>

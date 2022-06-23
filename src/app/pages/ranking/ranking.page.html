@@ -1,16 +1,16 @@
 <ion-card>
   <ion-card-header>
-    <ion-title>Mejores del Mundo</ion-title>
+    <ion-title>MEJORES {{this.mode | uppercase}}</ion-title>
   </ion-card-header>
   <ion-card-content>
     <ng-container *ngIf="this.mode==='rush'; then rush; else normal"></ng-container>
     <ng-template #rush>
     <ion-item *ngFor="let user of this.data; let i=index">
-     {{this.data[i].username}} {{this.data[i].rush}}
+     <div>{{i+1}}.  {{this.data[i].username| uppercase}}        {{this.data[i].rush}}</div>
     </ion-item>
   </ng-template>
   <ng-template #normal><ion-item *ngFor="let user of this.data; let i=index">
-    {{this.data[i].username}} {{this.data[i].normal}}
+    <div>{{i+1}}.   {{this.data[i].username| uppercase}}       {{this.data[i].normal}}</div>
   </ion-item></ng-template>
   </ion-card-content>
 </ion-card>
