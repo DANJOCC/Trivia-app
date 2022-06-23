@@ -43,7 +43,7 @@ export class LoginPage implements OnInit {
     
   }
 
-  public signup(email:string,password:string){
+  public login(email:string,password:string){
     if(!this.bs.checkField([email,password])){
       this.bs.alert('Fields','Please write email or password',[{text:'ok'}]);
     }else{

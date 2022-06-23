@@ -46,7 +46,7 @@ export class RegisterPage implements OnInit {
     
   }
 
-  public(user:string,email:string,password:string,confirmPassword:string) {
+ public register(user:string,email:string,password:string,confirmPassword:string) {
     if(!this.bs.checkField([user,email,password,confirmPassword])){
       this.bs.alert('Fields','Please write on all fields',[{text: 'OK'}]);
     }else{
@@ -73,7 +73,7 @@ export class RegisterPage implements OnInit {
 
         }
       },(err)=>{console.log('Error:',err);
-    this.bs.alert('Faatal error',err,[{text:'ok'}]);
+    this.bs.alert('Fatal error',err,[{text:'ok'}]);
     });
     }
   }
