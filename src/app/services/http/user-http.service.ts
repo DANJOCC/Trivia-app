@@ -28,22 +28,10 @@ export class UserHttpService {
   }
 
   public login(data: LoginUser) { 
-    return this.http.post(this.url + 'singin', data, this.requestOptions).toPromise();
+    return this.http.post(this.url + 'login', data, this.requestOptions).toPromise();
   }
 
   public register(data: User) { 
-    return this.http.post(this.url + 'singup', data, this.requestOptions).toPromise();
+    return this.http.post(this.url + 'register', data, this.requestOptions).toPromise();
   }
-
-  public updatePass(data: Pass) { 
-    return this.http.put(this.url + 'pass/' + sessionStorage.id, data, this.requestOptions).toPromise();
-  }
-  
-  public updateUser(data: User) {
-    return this.http.put(this.url + sessionStorage.id, data, this.requestOptions).toPromise();
-  }
-
-  public deleteUser(id: string) {
-    return this.http.delete(this.url + id, this.requestOptions).toPromise();
-  } 
 }
