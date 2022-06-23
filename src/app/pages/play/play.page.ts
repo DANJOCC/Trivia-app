@@ -25,6 +25,7 @@ export class PlayPage implements OnInit {
   progressTime=1;                              //valor de barra de tiempo
   points: number;
   rigths: number;
+  user: string;
   constructor(private paramsRutas: ActivatedRoute, private route: Router, private ranking: RankingService) { }
 
   ngOnInit() {
@@ -37,6 +38,7 @@ export class PlayPage implements OnInit {
       this.points=0;
       this.difficult=0;
       this.modo=this.paramsRutas.snapshot.params.modo;// se guarda el modo del juego paso en la ruta
+      this.user=this.paramsRutas.snapshot.params.user;
       this.time=this.modo==='rush'? 20:60;//se configura el reloj
       this.min= this.time<60? 0:1;
       this.sg= this.time<60? 20:0;
@@ -44,7 +46,7 @@ export class PlayPage implements OnInit {
       const counter=this.start().subscribe(()=>{//empieza a contar
         if(this.time===0){
           counter.unsubscribe();
-          this.route.navigate(['game-over',this.modo,this.playInfo.score]);
+          this.route.navigate(['game-over',this.modo,this.playInfo.score,this.user]);
         }
       });
   }
@@ -72,7 +74,7 @@ export class PlayPage implements OnInit {
     if(typeof card.lastQuestion !== 'undefined'){
       if(card.lastQuestion){
         const newScore=this.playInfo.score+(this.time*100);//agregar nueva puntuacion
-        this.route.navigate([`game-over/${this.modo}/${newScore}`]);//fin del juego
+        this.route.navigate([`game-over/${this.modo}/${newScore}/${this.user}`]);//fin del juego
       }
       else{
         this.playInfo.difficulty=this.difficult;

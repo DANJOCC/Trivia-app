@@ -38,33 +38,17 @@ export class LoginPage implements OnInit {
   }
 
 
-  public login(email: string,password: string){
-    if(!this.bs.checkField([email,password])){
+  public login(username: string | number,password: string | number){
+    if(!this.bs.checkField([username,password])){
       this.bs.alert('Fields','Please write email or password',[{text:'ok'}]);
     }else{
-     const data: LoginUser={email,password};
+     const data: LoginUser={username,password};
       this.bs.loading('Loading',5000);
-      this.uHttpS.login(data).then((res: Response)=>{
-        switch(res.typeResponse){
-          case 'Success':
-          this.bs.toast(res.message,2000,'top');
-          this.bs.setUserOnSession(res.body[0]);
-          this.router.navigate(['/play']);
-          break;
-          case 'Fail':
-            this.bs.toast(res.message,5000,'top');
-            res.body.errors.forEach(element =>{
-              this.bs.toast(element.message,3000,'top');
-            });
-            break;
-
-            default:
-              this.bs.alert(res.typeResponse,res.message,[{text:'ok'}]);
-              break;
-        }
-      },(err)=>{console.log('Error',err);
-    this.bs.alert('Fatal error',err,[{text:'ok'}]);
-    });
+      this.uHttpS.login(data).subscribe((daeta: any)=>{
+        const user = daeta;
+        console.log(user.username);
+        this.router.navigate(['/hall', user.username]);
+      });
     }
   }
 

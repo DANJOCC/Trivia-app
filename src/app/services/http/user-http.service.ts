@@ -28,8 +28,11 @@ export class UserHttpService {
     return this.http.get(this.url + sessionStorage.user.id).toPromise();
   }
 
-  public login(data: LoginUser) {
-    return this.http.post(this.url + 'login', data).toPromise();
+  public login(data: LoginUser): Observable<any> {
+    return this.http.post(this.url + 'login', {
+      username:data.username,
+      password:data.password
+    },{responseType: 'json'});
   }
 
   public register(data: User): Observable<any> {

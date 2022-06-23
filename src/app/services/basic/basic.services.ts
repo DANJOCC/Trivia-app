@@ -45,7 +45,7 @@ export class BasicService {
       id: sessionStorage.id,
       password: null,
       confirmPassword: null
-    }
+    };
   }
 
   public getNums(min, max) {

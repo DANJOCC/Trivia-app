@@ -7,8 +7,8 @@
 <ion-content>
 <ion-list class="opacity">
 <ion-item>
-  <ion-label position="floating">Email</ion-label>
-  <ion-input clearInput type="email" autofocus="true" #email></ion-input>
+  <ion-label position="floating">username</ion-label>
+  <ion-input clearInput type="text" autofocus="true" #username></ion-input>
   <ion-icon slot="end" name="at"></ion-icon>
 </ion-item>
 <ion-item>
@@ -18,6 +18,6 @@
 </ion-item>
 
 </ion-list>
-<ion-button expand="full" shape="round" color="primary" (click)="login(email.value,password.value);">login</ion-button>
+<ion-button expand="full" shape="round" color="primary" (click)="login(username.value,password.value);">login</ion-button>
 <ion-button expand="full" shape="round" color="secondary"  href="/register">Register</ion-button>
 </ion-content>

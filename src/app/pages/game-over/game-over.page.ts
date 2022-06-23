@@ -11,13 +11,15 @@ import { RankingService } from 'src/app/services/ranking.service';
 export class GameOverPage implements OnInit {
   score: number;
   modo: string;
+  user: string;
   constructor(private paramsRutas: ActivatedRoute, private ranking: RankingService) { }
 
   ngOnInit() {
     this.score=this.paramsRutas.snapshot.params.score;
     this.modo=this.paramsRutas.snapshot.params.modo;
+    this.user=this.paramsRutas.snapshot.params.user;
     const data={
-      username:'elVato',
+      username:this.user,
       category:this.modo,
       score: this.score
     };

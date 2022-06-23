@@ -16,9 +16,9 @@ export class RegisterPage implements OnInit {
 
 
   constructor(
-    private bs:BasicService,
-    private router:Router,
-    private uHttpS:UserHttpService
+    private bs: BasicService,
+    private router: Router,
+    private uHttpS: UserHttpService
   ) { }
 
  //LIFE
@@ -42,15 +42,11 @@ export class RegisterPage implements OnInit {
 
   }
 
-  ngOnDestroy() {
-
-  }
-
- public register(username: string,email:string,password:string,confirmPassword:string) {
+ public register(username: string | number,email: string | number,password: string | number,confirmPassword: string | number) {
     if(!this.bs.checkField([username,email,password,confirmPassword])){
       this.bs.alert('Fields','Please write on all fields',[{text: 'OK'}]);
     }else{
-      let  data:User = {username ,email,password,confirmPassword,id:null};
+      const data: User = {username ,email,password,confirmPassword,id:null};
       this.bs.loading('Loading...',3000);
       this.uHttpS.register(data).subscribe(( deata: any)=>{
             console.log(deata);
