@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { 
-  ToastController, 
-  ModalController, 
-  AlertController, 
-  LoadingController, 
-  PickerController, 
-  ActionSheetController 
+import {
+  ToastController,
+  ModalController,
+  AlertController,
+  LoadingController,
+  PickerController,
+  ActionSheetController
 } from '@ionic/angular';
 import { User } from 'src/app/interfaces/user.model';
 
@@ -17,8 +17,8 @@ export class BasicService {
 
   constructor(
     private actionSheetCtrl: ActionSheetController,
-    private toastCtrl: ToastController, 
-    private loadingCtrl: LoadingController, 
+    private toastCtrl: ToastController,
+    private loadingCtrl: LoadingController,
     private alertCtrl: AlertController,
     private pikerCtrl: PickerController,
     private modalCtrl: ModalController
@@ -26,16 +26,16 @@ export class BasicService {
 
   }
 
-  public setUserOnSession(data: User) { 
-    sessionStorage.user = data.user;
+  public setUserOnSession(data: User) {
+    sessionStorage.user = data.username;
     sessionStorage.email = data.email;
     sessionStorage.id = data.id;
     }
 
-  public nullUserOnSession() { 
+  public nullUserOnSession() {
     sessionStorage.user = null;
     sessionStorage.email = null;
-    sessionStorage.id = null;   
+    sessionStorage.id = null;
   }
 
   public getUserOnSession() {
@@ -45,12 +45,12 @@ export class BasicService {
       id: sessionStorage.id,
       password: null,
       confirmPassword: null
-    } 
+    }
   }
 
   public getNums(min, max) {
     const arr = [];
-    
+
     for(let i = min; i <= max; i++) {
       arr.push({ description: i, id: i });
     }
@@ -60,19 +60,19 @@ export class BasicService {
 
   public checkField(fields: any[]) {
     let flag = true;
-    
-    fields.forEach(element => { 
-      if(element.length <= 0) { 
-        flag = false; 
+
+    fields.forEach(element => {
+      if(element.length <= 0) {
+        flag = false;
       }
     });
 
-    return flag
+    return flag;
   }
 
   public async modal(component) {
-    const modal = await this.modalCtrl.create({  
-      component  
+    const modal = await this.modalCtrl.create({
+      component
     });
 
     await modal.present();
@@ -81,14 +81,14 @@ export class BasicService {
   public async picker(name , colum, buttons) {
     const aux = [];
 
-    colum.forEach(element => { 
+    colum.forEach(element => {
       aux.push({ text: element.description, value: element.id });
     });
 
-    const piker = await this.pikerCtrl.create({ 
+    const piker = await this.pikerCtrl.create({
       columns: [{ name, options: aux }],
       buttons,
-      
+
     });
 
     await piker .present();
@@ -99,31 +99,30 @@ export class BasicService {
       header,
       buttons
     });
-    
+
     await actionSheet.present();
   }
-  
-  public async loading(message: string, duration: number) { 
-    const loading = await this.loadingCtrl.create({ 
-      message, 
-      duration 
+
+  public async loading(message: string, duration: number) {
+    const loading = await this.loadingCtrl.create({
+      message,
+      duration
     });
 
-    await loading.present(); 
+    await loading.present();
   }
-  
-  public async toast(message: string, duration: number, position) { 
-    const toast = await this.toastCtrl.create({ 
-      message, 
-      duration, 
+
+  public async toast(message: string, duration: number, position) {
+    const toast = await this.toastCtrl.create({
+      message,
+      duration,
       position
     });
-    
     await toast.present();
   }
-  
+
   public async alert(header: string, message: string, buttons: any[]) {
-    const alert = await this.alertCtrl.create({ 
+    const alert = await this.alertCtrl.create({
       header,
       message,
       buttons
@@ -133,7 +132,7 @@ export class BasicService {
   }
 
   public async alertWithInputs(header: string, message: string, inputs: any[],  buttons: any[]) {
-    const alert = await this.alertCtrl.create({ 
+    const alert = await this.alertCtrl.create({
       header,
       message,
       inputs,
